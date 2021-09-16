@@ -1,55 +1,41 @@
-import HornedBeast from 'react';
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-
 
 class HornedBeast extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            numOfbeat: 0
-        }
+            votes: 0
+        };
     }
 
-    
-    increaseNumberOfbeat = () => {
+    increaseVote = () => {
         this.setState({
-            numOfbeat: this.state.numOfbeat + 1
+            votes: this.state.votes + 1
         })
-    }
+    };
 
-  render() {
-    return (
-      <>
-        <h2>Main {this.props.title}</h2>
-        <img>Main {this.props.Img} </img>
-        <p>Main {this.props.des} </p>
-        
-        <Card style={{ width: '18rem' }}>
-                    <Card.Img className='cardCat' variant="top" src={this.props.Img} alt={this.props.title} />
+    render() {
+        return (
+            <div className="card">
+                <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={this.props.image_url} alt={this.props.title} title={this.props.title} />
                     <Card.Body>
                         <Card.Title>{this.props.title}</Card.Title>
                         <Card.Text>
-                            Number of beats {this.state.numOfbeat}
+                        {this.props.description}
                         </Card.Text>
-                        <Button onClick={this.increaseNumberOfbeat} variant="primary">Go </Button>
+                        <Card.Text>
+                        Number of votes: {this.state.votes}
+                        </Card.Text>
+                        <Button variant="primary" onClick={this.increaseVote}>vote</Button>
                     </Card.Body>
                 </Card>
-       
-
-
-
-        
-      </>
-    )
-  }
+            </div>
+        )
+    }
 }
 
 export default HornedBeast;
-
-
-
-
-
-
