@@ -1,15 +1,43 @@
-import React from 'react';
-import HornedBeast from './HornedBeast';
+import React from "react";
+import HornedBeasts from "./HornedBeast";
+import data from "./assets/data.json";
+import SelectedBeast from "./Beasts"
 
 class Main extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedTitle: '',
+            selectedImg: '',
+            selectedDes: '',
+            showModel: false
+        }
+    }
+
+    handleClose = () => {
+        this.setState({showModel: false});
+    };
+    show = (title, img, des) => {
+        this.setState({
+            selectedTitle: title,
+            selectedImg: img,
+            selectedDes: des,
+            showModel: true
+        });
+    };
+    
+
     render() {
-        return (
-            <>
-                <h3>Main</h3>
-                <HornedBeast title='UniWhal' Img={'http://3.bp.blogspot.com/_DBYF1AdFaHw/TE-f0cDQ24I/AAAAAAAACZg/l-FdTZ6M7z8/s1600/Unicorn_and_Narwhal_by_dinglehopper.jpg"'} des= {"Hi"}/>
-                <HornedBeast title='Rhino Family' Img={'https://images.unsplash.com/photo-1512636618879-bbe79107e9e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd9460ee6d1ddbb6b1ca7be86dfc4590&auto=format&fit=crop&w=1825&q=80'} des= {"Thanks"}/>
-            </>
-        )
+        const list = data.map(item => {
+            return (
+                <>
+                    <HornedBeasts title={item.title} image_url={item.image_url} description={item.description} show={this.show.bind(this)} />
+                    <SelectedBeast show={this.state.showModel} handleClose={this.handleClose} selectedTitle={this.state.selectedTitle} selectedImg={this.state.selectedImg} selectedDes={this.state.selectedDes} />
+                </>
+            )
+        })
+        return list;
     }
 }
 
